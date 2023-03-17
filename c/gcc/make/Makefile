@@ -9,3 +9,4 @@ test3.o : test3.c b.h c.h
 	gcc -c test3.c
 clean:$(OBJF)
 	rm -rf test $(OBJF)
+ 
