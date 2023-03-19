@@ -1,10 +1,11 @@
-test : test1.o test2.o test3.o
-	gcc -o test test1.o test2.o test3.o
-test1.o : test1.c a.h
-	gcc -c test1.c
-test2.o : test2.c a.h b.h
-	gcc -c test2.c
-test3.o : test3.c b.h c.h
-	gcc -c test3.c
-clean :
-	rm -rf test test*.o
+1 OBJF = test1.o test2.o test3.o
+2 test : $(OBJF)
+3         gcc -o $@ $^
+4 test1.o : test1.c a.h
+5         gcc -c $<
+6 test2.o : test2.c a.h b.h
+7         gcc -c $*.c
+8 test3.o : test3.c b.h c.h
+9         gcc -c $<
+10 clean : test $(OBJF)
+11         rm -rf $^
