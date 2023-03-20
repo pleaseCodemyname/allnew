@@ -1,5 +1,7 @@
 # .gitignore
 
+.ftpconfig
+
 ## c programming
 c/**/a.out
 c/**/hello
