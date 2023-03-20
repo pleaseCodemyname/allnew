@@ -8,4 +8,4 @@
 8 test3.o : test3.c b.h c.h
 9         gcc -c $<
 10 clean : test $(OBJF)
-11         rm -rf $^
+11 	rm -rf test %(OBJF)
