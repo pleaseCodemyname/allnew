@@ -1,8 +1,7 @@
 #include<stdio.h>
 #include "libcheckprime.h"
 
-void main()
-{
+void main() {
   while (1)
     int n;
     printf("\ninput integer => ");
