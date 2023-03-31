@@ -19,3 +19,9 @@ scala/**/target
 ## maven
 maven/target
 
+## nodjs
+node/**/node_modules
+
+## python
+python/**/.venv
+python/**/__pycache__/
