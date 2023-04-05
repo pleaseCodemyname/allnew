@@ -4,7 +4,7 @@ var data = JSON.stringify({
     "database": "test",
     "dataSource": "Cluster0",
     "projection": {
-        "_id": 1,
+        "_id": 0,
         "id": 1,
         "name": 1
     }
@@ -16,7 +16,7 @@ var config = {
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Request-Headers': '*',
-        'api-key': 'xxx',
+        'api-key': 'x',
     },
     data: data
 };
