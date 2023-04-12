@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Sign In</title>
+  </head>
+  <body>
+    <h3>User Information</h3>
+    <hr>
+    <form action="/insert" target="targetURL" name="userForm" method="post">
+      <p>userid <input type="text" size="15" name="userid" /></p>
+      <p>passwd  <input type="password" size="15" name="passwd" /></p> 
+      <p>address  <input type="text" size="20" name="address" /></p>  
+      <p>birth  <input type="datetime" size="40" name="birth" /></p>  
+      <p>phone_num  <input type="number" size="12" name="phone_num" /></p>   
+      <p>sc_size  <input type="text" size="20" name="sc_size" /></p>  
+      <input type="button" 
+      value="get select" 
+      onclick='document.targetURL.location.href="/select"'
+      />&nbsp;&nbsp;   
+      <input 
+      type="button" 
+      value="get selectQuery" 
+      onclick='document.targetURL.location.href="/selectQuery?userid="
+      +document.userForm.userid.value'
+      />&nbsp;&nbsp;
+      <input type="submit" value="post insert" />&nbsp;&nbsp;
+      <button type="submit" formaction="/update">post update</button>&nbsp;&nbsp; <!--form action 없으면 insert에게 감-->
+      <button type="submit" formaction="/delete">post delete</button>&nbsp;&nbsp;
+    </form>
+    <hr />
+    <iframe 
+    name="targetURL" 
+    width="70%" 
+    height="500" 
+    style="border: none;"
+    src="/hello"
+    ></iframe>
+  </body>
+</html>
