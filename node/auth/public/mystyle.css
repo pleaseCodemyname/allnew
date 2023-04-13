@@ -1,0 +1,33 @@
+body { font: bold 19px monospace, sans-serif; background-color: aqua;
+/* text-align: center; */
+}
+h3 { color : #00020a; margin-left: 30px;}
+hr { border : 15px solid #1f1625 ; }
+input { color : 	#000000; font-size : 15px; }
+button { color : 	#000000; font-size : 15px; }
+a { font-family: monospace;
+    font-size : 18px;
+    color : 	#39343f;}
+input[type="text"] { background-color: rgb(53, 240, 193);}
+input[type="password"] { background-color: rgb(226, 163, 202);}
+
+
+div.box {
+	background : rgb(191, 170, 230);
+	border-style : solid;
+ 	border-color : rgb(190, 155, 247); 
+    border-radius: 35px;
+    width: 350px;
+    height: 200px;
+
+	margin : 100px;
+	border-width : 1x;	
+	padding : 50px;
+}
+div.box-inner {
+    border-color : peru;
+	border-style : none;
+    text-align: center;
+	margin : 10px;
+	padding : 10px;
+}
