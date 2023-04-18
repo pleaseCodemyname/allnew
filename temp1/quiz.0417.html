@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Random 숫자 추출</title>
+  </head>
+
+  <body>
+    <h3>Random 숫자 추출</h3>
+    <hr />
+    <script>
+    let n = 5;
+        let array = new Array(5);
+        let max = 0;
+        document.write("전체 배열의 값 : ");
+        for (let i = 0; i < n; i++) {
+            array[i] = Math.floor(Math.random() * 100 + 1);
+            document.writeln(array[i]);
+            max = array[i] > max ? array [i] : max;
+        }
+        document.write("<br> 배열 원소 중 최대값 : " + max);
+
+
+    //   random[0] = Math.floor(Math.random() *100 +1);
+    //   random[1] = Math.floor(Math.random() *100 +1);
+    //   random[2] = Math.floor(Math.random() *100 +1);
+    //   random[3] = Math.floor(Math.random() *100 +1);
+    //   random[4] = Math.floor(Math.random() *100 +1);
+
+
+
+    //   let n = prompt("Random 숫자최댓값을 입력하세요.", 5);
+    //   for(let i = 0; i < 5; i++){ 
+    //   const random = Math.floor(Math.random()*100 +1);
+      
+    //   document.write("Random value : " + random);
+      
+    //   }
+    </script>
+  </body>
+</html>
+
+
+<!-- <script>
+let five = new Array(1, 15, 17, 22, 39);
+let random_num = math.floor(math.random() * 100+1);
+document.write(random_num)
+
+</script> -->

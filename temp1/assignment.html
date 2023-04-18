@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calendar</title>
+    <style>
+        div {
+            overflow-x: auto;
+        }   /* 창이 다 안보일때 표만 스크롤해서 볼수있게 지정하려 했으나 실패했음*/
+      table {
+        width: 100%; text-align: center; border-collapse: collapse; /* width:100% 로 크기 늘림, border창 두개로 나뉘어 지는거 collapse로 합침 */
+      color: aquamarine;
+    }
+      th {
+        background-color: rgb(185, 9, 255);
+        font: 15px sans-serif;
+      }
+      tr:nth-child(2n+0){background-color: rgb(167, 167, 224); /* 짝수 th를 제외한 짝수tr(열)에 파란색 background를 적용했음(인터넷 참조) */
+      font-weight: bold; /*글꼴굵게*/; font-family: 'Times New Roman', Times, serif ;
+      }  
+    </style>
+  </head>
+  <body>
+    <h3>Calendar</h3>
+    <hr />
+    <script>
+      let input = prompt("원하는 년도와 달을 입력하세요.(예 : 202304)", 202304);
+      const input_year = input.substr(0, 4);
+      const input_month = input.substr(4, 2);
+      var startDay = new Date(input_year + "-" + input_month).getDay(); //getDay() 요일을 숫자로 표시 0: 일 1: 월 2: 화 3: 수 4: 목 5: 금 6: 토
+      var endDay = new Date(input_year, input_month, 0).getDate();
+    </script>
+    <table id="calendar" border="3" align="center" width="400" height="300">
+      <thead>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Thu</th>
+          <th>Wed</th>
+          <th>Thr</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <script>
+        let i = 1;
+        for (i = 1; i <= endDay + startDay; i++) { //i = 1부터 시작 / i는 endDay + starDay의 합보다 작거나 같을떄 까지 반복문, i는 1씩 증가
+          if (i % 7 == 1) document.write("<tr>"); // i가 7의 배수이면 tr(table row) 행(가로줄)을 만드는 역할
+          if (i <= startDay) document.write("<td></td>"); // i가 startDay보다 작거나 같으면 td(table data) 
+          if (i > startDay) {
+            document.write("<td>");
+            document.write(i - startDay);
+            document.write("</td>");
+          }
+          if (i % 7 == 0) document.write("</tr>");
+        }
+      </script>
+    </table>
+  </body>
+</html>

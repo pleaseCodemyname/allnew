@@ -12,13 +12,13 @@
 	let today = new Date(); 
 
 	// Date 객체의 toLocaleString() 메소드 호출
-	document.write("현재 시간 : " + today.toLocaleString() + "<br>");
+	document.write("현재 시간 : " + today.toLocaleString() + "<br>"); //toLocaleString 현재시간을 String으로 가져와라
 
 	// String 객체 생성
 	let mystr= new String("자바스크립트 공부하기");
 	document.write("mystr의 내용 : " + mystr + "<br>");
 	document.write("mystr의 길이 : " + mystr.length + "<br>");
-	// mystr.length=10; // 이 문장은 오류이다.
+	// mystr.length=10; // 이 문장은 오류이다. length는 바꿀수 없다. 이미 자기가 가진 속성이니깐
 </script>
 </body>
 </html>

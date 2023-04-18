@@ -1,0 +1,55 @@
+<!--n개의 배열에 랜덤한 값을 입력(최대값 10) // for 문 사용
+전체 배열 출력
+배열의 원소를 각각 더해서 3*n 보다 크면 종료. 5면 15가 되면 종료
+종료된 배열의 인덱스와 [] 합산 같을 출력.  -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Random 숫자 추출</title>
+  </head>
+
+  <body>
+    <h3>배열 추출</h3>
+    <hr />
+    <script>
+        var n =6;
+        let nums = new Array(n);
+        var sum = 0;
+
+        document.write("배열의 길이 : " + n + "<br>" + "생성된 배열 : ");
+        for (let i = 0; i <= n; i++) {
+            nums[i] = Math.floor(Math.random() * 10 + 1);
+            document.writeln(nums[i]);
+        }
+        for (var j = 0; j < n; j++) {
+            sum +=nums[j];
+            if (sum > 3 * n) {
+                document.write(
+                    "<br>" +
+                    "종료된 시점의 인덱스 값 : nums[" + j + "]" + "<br>" + "총 합 : " + sum );
+                    break;
+            }
+        }
+    </script>
+  </body>
+</html>
+
+
+
+      <!-- //   let max = 0
+    //   document.write("전체 배열의 값 : ");
+    //   for(let i=0; i <5 ; i++) {
+    //       let value = Math.floor(Math.random() * 100 +1);  
+    //       document.writeln(array[i]); 
+    //     }
+    //   document.write("전체 배열의 값 : " + degrees + " <br>"); -->
+
+
+<!-- <script>
+let five = new Array(1, 15, 17, 22, 39);
+let random_num = math.floor(math.random() * 100+1);
+document.write(random_num)
+
+</script> -->
