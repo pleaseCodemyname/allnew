@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3/6일부터 4/18일까지의 시간 차이</title>
+</head>
+<body>
+<h3>초 시간</h3>
+<hr>
+<script>
+	let current = new Date(); // 현재 시간 값을 가진 Date 객체 생성
+    let startday = new Date(2023,2,6,9);
+    document.write(current + "<br>");
+    document.write(startday + "<br>");
+    let diff = current - startday;
+    let elpased_sec = diff / 1000;
+    let elpased_min = elpased_sec / 60;
+    let elpased_hour = elpased_min / 60;
+    let elpased_day = elpased_hour / 24;
+    document.write("경과 시간 - 일 : " + Math.round(elpased_day) + "<br>")
+    document.write("경과 시간 - 일 : " + Math.round(elpased_hour) + "<br>")
+    document.write("경과 시간 - 일 : " + Math.round(elpased_min) + "<br>")
+    document.write("경과 시간 - 일 : " + elpased_sec)
+    document.write(`<hr />`);
+
+    
+    // document.write("오늘 시간 : " + current.getHours() + "<br>"); 
+    // document.write("수강 첫 날 시간 : " + startday.getHours() + "<br>");
+    // document.write("경과시간 : " + current - startday)
+</script>
+</body>
+</html>

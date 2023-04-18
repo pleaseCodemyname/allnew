@@ -1,0 +1,65 @@
+<!-- book object 실습
+<property>
+<title>
+author
+page
+category
+price
+<method>
+reading(페이지수)
+rental(user, day) 몇일간 대여하는지  -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>book object</title>
+<script>
+    let book  = { 
+    title: "혼자 공부하는 데이터 분석" , // 계좌 주인 프로퍼티 생성 및 초기화
+    author: "박해선", // 코드 프로퍼티 생성 및 초기화
+    totalPage: 496, // 잔액 프로퍼티 생성 및 초기화
+    category:"Coding", // 잔액 프로퍼티 생성 및 초기화
+    price: 26000, // 잔액 프로퍼티 생성 및 초기화
+    read : function(page) { 
+    this.totalPage -= page; 
+    return page;
+    } 
+}
+    //  읽고 남은 페이지 조회
+	//메소드로 사용할 3 개의 함수 작성
+    // function rental(book) { this.balance += money; } // money 만큼 저금
+	// rental: function (user) {return this. // 예금 인출, money는 인출하고자 하는 액수
+        // 	// money가 balance보다 작다고 가정
+        // 	this.book -= money; 
+        // 	return money;
+        // } 
+        
+        // 사용자 객체 만들기
+	// account.inquiry = inquiry; // 메소드 작성
+	// account.deposit = deposit; // 메소드 작성
+	// account.withdraw = withdraw; // 메소드 작성
+</script>
+</head>
+<body>
+<h3>new Object()로 사용자 객체 만들기</h3>
+<hr>
+<script>
+	// 객체 활용
+	document.write("Book : ");
+	document.write(book.title + ", ");
+	document.write(book.author + ", ");
+	document.write(book.totalPage + " 페이지, ");
+	document.write(book.category + ", ");
+	document.write(book.price + "원" + "<br>");
+    book.read(100);
+    document.write("총 496 페이지를 읽고 남은 페이지 수는 " + book.read() + "<br>")
+	
+	
+	// account.deposit(10000); // 10000원 저금
+	// document.write("10000원 저금 후 잔액은 " + account.inquiry() + "<br>");
+	// account.withdraw(5000); // 5000원 인출
+	// document.write("5000원 인출 후 잔액은 " + account.inquiry() + "<br>");
+</script>
+</body>
+</html>

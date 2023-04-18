@@ -1,0 +1,110 @@
+<!-- back
+grade
+maxFuel: 500L 넣으면 500KM 주행가능
+displacement
+price
+
+서울, 부산, 350
+drive(from, to ,distance)
+refueling(amount)) -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>자동차 주행</title>
+    <script>
+      function Car(brand, grade, maxFuel, displacement, price, departure) {
+        this.brand = brand;
+        this.grade = grade;
+        this.maxFuel = maxFuel;
+        this.displacement = displacement;
+        this.price = price;
+      }
+      function info(brand, grade, maxFuel, displacement, price, departure) {
+      document.write(`
+      brand : ${this.brand}<br>
+      grade : ${this.grade}<br>
+      maxFuel : ${this.maxFuel}<br>
+      displacement : ${this.displacement}<br>
+      price : ${this.price}<br><hr>`);
+     this.drive = function (from, to, distance) {
+        this.leftoverFuel -= distance;
+        document.write(
+            `${this.brand} 차량이 ${from}
+        )
+     }
+      
+      if (this.leftoverFuel > 50)
+      document.write(
+        `잔여 연료량은 ${this.leftoverFuel}입니다. <br><hr />
+        );
+        else
+        document.write(
+            `잔여 연료량은 ${this.leftoverFuel}입니다. <br> 주유가 필요합니다. <br><hr />`
+    }
+
+
+        
+
+        // this.info = function(brand, grade, maxFuel,displacement, price)
+        // {return this.brand, grade, maxFuel, displacement,price;}
+
+        this.drive = function(from, to, km) {
+        this.departure = from;
+        this.arrival = to;
+        this.distance = km;
+        document.write(this.brand + "차량이 " + this.departure + " 에서 " + this.arrival + " 까지 " + benz.distance + "km 주행하셨습니다." )
+        return this.distance;
+    };
+}
+  </script>
+  </head>
+  <body>
+    <h3>프로토타입으로 Car 만들기</h3>
+    <hr />
+    <script>
+      let benz = new Car("benz", "suv", 900, 4000, 3000);
+      benz.info();  
+      benz.drive("Seoul","Daejeon",300);
+        // this.drive = function(km) {
+        //   this.distance -= km;
+        // };
+        // this.rental = function(user, day) {
+        //   this.rentalUser = user;
+        //   this.rentalDay = day;
+        //   this.rentalState = 0;
+        //   return this.rentalState;
+        // };
+  
+    //   document.write("brand " + car1.brand + "<br>");
+    //   document.write("brand " + car2.brand + "<br>");
+    //   document.write("저자 : " + boo.author + "<br>");
+    //   document.write("장르 : " + book.category + "<br>");
+    //   document.write("가격 : " + book.price + "원 <br>");
+    //   document.write("총 페이지 수 : " + book.totalPage + "<br>");
+    //   document.write("<hr />");
+
+    //   document.write(
+    //     "현재 전체 페이지 " +
+    //       book.totalPage +
+    //       " 중 잔여 페이지가 " +
+    //       book.reading(50) +
+    //       "페이지 남으셨습니다. <br><hr />"
+    //   );
+    //   book.rental("임예준", 30);
+    //   let state = { 0: "대여중", 1: "대여가능" };
+    //   document.write(
+    //     "현재 " +
+    //       book.title +
+    //       "는 " +
+    //       book.rentalUser +
+    //       "님에게 " +
+    //       book.rentalDay +
+    //       "일 동안 " +
+    //       state[book.rentalState] +
+    //       "입니다."
+    //   );
+    </script>
+  </body>
+</html>
