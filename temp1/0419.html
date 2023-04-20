@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>palindrome</title>
+    <script>
+        function checkPalindrome() {
+       let userInput = document.getElementById("userInput").value;   //주어진 문자열과 일치하는 id 속성을 가진 요소를 찾음
+       let result = document.getElementById("result"); // 
+   
+       if (Math.floor(userInput/100) === Math.floor(userInput%10)) {
+           result.innerHTML = userInput + " is a palindrome!";
+       } else if (userInput[0] === userInput[2]) {
+           result.innerHTML = userInput + " is a palindrome!";
+       } else {
+           result.innerHTML = userInput + " is not a palindrome.";
+       }
+   }
+    </script>
+  </head>
+  <body>
+    
+    <h3>Palindrome? Or Not?</h3>
+    <form>
+      <input type="text" id="userInput">
+      <button type="button" onclick="checkPalindrome()">Check</button><br>
+      <button type="radio" onclick="checkString()">문자</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="radio" onclick="checkNumber()">숫자</button>
+    </form>
+    <div id="result"></div>
+  </body>
+</html>

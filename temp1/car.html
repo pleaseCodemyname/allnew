@@ -14,50 +14,40 @@ refueling(amount)) -->
     <meta charset="UTF-8" />
     <title>자동차 주행</title>
     <script>
-      function Car(brand, grade, maxFuel, displacement, price, departure) {
-        this.brand = brand;
+      function Car(brand, grade, maxFuel, displacement, price, departure) { //프로퍼티 생성, C++&JAVA에서는 Class라고 정의함
+        this.brand = brand;   // function은 object여러개를 찍어내는 것 
         this.grade = grade;
         this.maxFuel = maxFuel;
         this.displacement = displacement;
         this.price = price;
-      }
-      function info(brand, grade, maxFuel, displacement, price, departure) {
+        
+        this.leftoverFuel = maxFuel;
+
+     this. info = function() {
       document.write(`
       brand : ${this.brand}<br>
       grade : ${this.grade}<br>
       maxFuel : ${this.maxFuel}<br>
       displacement : ${this.displacement}<br>
       price : ${this.price}<br><hr>`);
+     };
+
      this.drive = function (from, to, distance) {
         this.leftoverFuel -= distance;
-        document.write(
-            `${this.brand} 차량이 ${from}
-        )
-     }
-      
+        document.write(`${this.brand} 차량이 ${from}에서 ${to}까지 ${distance} 주행하셨습니다.<br>`);
       if (this.leftoverFuel > 50)
-      document.write(
-        `잔여 연료량은 ${this.leftoverFuel}입니다. <br><hr />
-        );
+      document.write(`잔여 연료량은 ${this.leftoverFuel}입니다. <br><hr />`);
         else
+        document.write(`잔여 연료량은 ${this.leftoverFuel}입니다. <br> 주유가 필요합니다. <br><hr />`)
+      };
+
+      this.refueling = function (amount) {
+        this.leftoverFuel += amount;
         document.write(
-            `잔여 연료량은 ${this.leftoverFuel}입니다. <br> 주유가 필요합니다. <br><hr />`
-    }
-
-
-        
-
-        // this.info = function(brand, grade, maxFuel,displacement, price)
-        // {return this.brand, grade, maxFuel, displacement,price;}
-
-        this.drive = function(from, to, km) {
-        this.departure = from;
-        this.arrival = to;
-        this.distance = km;
-        document.write(this.brand + "차량이 " + this.departure + " 에서 " + this.arrival + " 까지 " + benz.distance + "km 주행하셨습니다." )
-        return this.distance;
-    };
-}
+          `${amount} 주유하여 잔여 연료량은 ${this.leftoverFuel}입니다. <br><hr />`
+        );
+      };
+    };       
   </script>
   </head>
   <body>
@@ -66,7 +56,15 @@ refueling(amount)) -->
     <script>
       let benz = new Car("benz", "suv", 900, 4000, 3000);
       benz.info();  
-      benz.drive("Seoul","Daejeon",300);
+      benz.drive("Seoul","Pusan",400);
+      benz.drive("Pusan","Incheon",460);
+      benz.refueling(860);
+
+      let bmw = new Car("bmw", "sedan", 700, 3500, 2700);
+      bmw.info();
+      bmw.drive("Ilsan", "Bundang", 300);
+      bmw.drive("Bundang", "Ilsan", 370);
+      bmw.refueling(350)
         // this.drive = function(km) {
         //   this.distance -= km;
         // };

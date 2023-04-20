@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-function template_nodata(res) {   //result가 내부에서 사용되지 않았음, res는 res.end에 전달해줘야하기 때문
+function template_nodata(res) {   
     var template = `    
     <!doctype html>
     <html>
@@ -50,7 +50,7 @@ function template_result(result, res) {
     </thead>
     <tbody>
     `;
-    for (var i = 0; i < result.length; i++) {    //사용자가 3명이면 result.length = 3임
+    for (var i = 0; i < result.length; i++) {   
         template += `
     <tr>
         <td>${result[i]['userid']}</td>  
@@ -64,7 +64,7 @@ function template_result(result, res) {
     </body>
     </html>
     `;
-    res.end(template);  //send가 아님을 유의하자
+    res.end(template);  
 }
 
 app.get('/hello', (req, res) => {
@@ -81,12 +81,13 @@ app.post('/login', (req, res) => {
     }
     if (id == 'admin' || id == 'root') {
         console.log(id + " => Administrator Logined")
-        res.redirect('member.html')
+        res.redirect('member.html?id=' + id);
     } else {
         console.log(id + " => User Logined")
-        res.redirect('user.html')
+        res.redirect('user.html?id=' + id)
     }
 })
+
 
 // register
 app.post('/register', (req, res) => {
@@ -96,7 +97,7 @@ app.post('/register', (req, res) => {
     } else {
         let result = connection.query("select * from user where userid=?", [id]);
         if (result.length > 0) {
-            res.writeHead(200);  ///200 은 나의 request가 성공했을때 나오는 문구임, 304 indirection, 404 not found
+            res.writeHead(200);  
             var template = `
         <!doctype html>
         <html>
@@ -112,7 +113,7 @@ app.post('/register', (req, res) => {
             </div>
         </body>
         </html>  
-        `; //모든 view는 public에 있다, 그래서 위에 있는 구문은 public에 있는 index.html에 영향을 줌
+        `; 
             res.end(template);
         } else {
             result = connection.query("insert into user values (?, ?)", [id, pw]);
@@ -188,35 +189,17 @@ app.post('/selectQuery', (req, res) => {
 // request O, query O
 app.post('/insert', (req, res) => {
     const { id, pw } = req.body;
-    if (id == "" || pw == "") {   //2개필드를 다 입력해야함, id & pw 다 채워져 있어야함
-        // res.send('User-id와 Password를 입력하세요.')
+    if (id == "" || pw == "") {   
         res.write("<script>alert('가입할 User-id를 입력하세요.')</script>")
     } else {
         let result = connection.query("select * from user where userid=?", [id]);
-        if (result.length > 0) {   // 이미 존재하는 아이디이면 
-            // res.writeHead(200);
+        if (result.length > 0) {  
             res.write("<script>alert('중복된 id 입니다.'</script>")
-        //     var template = `
-        // <!doctype html>
-        // <html>
-        // <head>
-        //     <title>Error</title>
-        //     <meta charset="utf-8">
-        // </head>
-        // <body>
-        //     <div>
-        //         <h3 style="margin-left: 30px">Registrer Failed</h3>
-        //         <h4 style="margin-left: 30px">이미 존재하는 아이디입니다.</h4>
-        //     </div>
-        // </body>
-        // </html>
-        // `;
             res.end(template);
         } else {
             result = connection.query("insert into user values (?, ?)", [id, pw]);
             console.log(result);
             res.write("<script>alert('가입되었습니다')</script>")
-            // res.redirect('/selectQuery?id=' + req.body.id);
         }
     }
 })
@@ -225,7 +208,6 @@ app.post('/insert', (req, res) => {
 app.post('/update', (req, res) => {
     const { id, pw } = req.body;
     if (id == "" || pw == "") {
-        // res.send('User-id와 Password를 입력하세요.')
         res.write("<script>alert('User-id를 입력하세요')</script>")
     } else {
         const result = connection.query("select * from user where userid=?", [id]);

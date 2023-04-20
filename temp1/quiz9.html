@@ -13,9 +13,9 @@
 
         this.leftoverFuel = maxFuel;
 
-        this.info = function () {
+        this.info = function () {   //${}를 사용한 이유는 document.write할 때 a + b 이런식으로 해야하는데, 입력받는 값에 ${}를 사용하면 그렇게 할 필요가 없음. 
           document.write(`
-            brand : ${this.brand}<br>
+            brand : ${this.brand}<br> 
             grade : ${this.grade}<br>
             maxfuel : ${this.maxFuel}<br>
             displacement : ${this.displacement}<br>

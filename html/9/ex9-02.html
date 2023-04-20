@@ -7,7 +7,7 @@
 let p;
 function init() { // 문서가 완전히 로드되었을 때 호출
 	p = document.getElementById("p");
-	p.onmouseover = over; // over() 함수를 onmouseover 리스너로 등록
+	p.onmouseover = over; // over() 함수를 onmouseover 리스너로 등록 EvenListner 안쓰면 over() 생략
 	p.onmouseout = out; // out() 함수를 onmouseout 리스너로 등록
 }
 function over() {

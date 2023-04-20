@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>숫자 야구 게임</title>
+    <style>
+      body {
+        text-align: center;
+      }
+      input[type="text"], button {
+        font-size: 20px;
+        padding: 10px;
+        margin: 10px;
+      }
+      #result {
+        font-size: 24px;
+        font-weight: bold;
+        color: red;
+        margin-top: 20px;
+      }
+    </style>
+    <script>
+      let answer = "";
+      function startGame() {
+        let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        for (let i = 0; i < 3; i++) {
+          let index = Math.floor(Math.random() * numbers.length);
+          answer += numbers[index];
+          numbers.splice(index, 1);
+        }
+        console.log(answer);
+      }
+      function checkGuess(guess) {
+        let strike = 0;
+        let ball = 0;
+        for (let i = 0; i < 3; i++) {
+          if (guess[i] === answer[i]) {
+            strike++;
+          } else if (answer.includes(guess[i])) {
+            ball++;
+          }
+        }
+        if (strike === 3) {
+          document.getElementById("result").innerHTML = "축하합니다! 숫자를 모두 맞추셨습니다.";
+        } else {
+          document.getElementById("result").innerHTML = strike + " 스트라이크 " + ball + " 볼입니다.";
+        }
+      }
+      function guess() {
+        let input = document.getElementById("guess");
+        let value = input.value;
+        if (value.length !== 3 || new Set(value).size !== 3) {
+          alert("1에서 9까지 서로 다른 세 자리 숫자를 입력해주세요.");
+          input.value = "";
+          input.focus();
+          return;
+        }
+        checkGuess(value);
+        input.value = "";
+        input.focus();
+      }
+    </script>
+  </head>
+  <body onload="startGame()">
+    <h1>숫자 야구 게임</h1>
+    <p>1에서 9까지 서로 다른 세 자리 수를 맞춰보세요.</p>
+    <input type="text" id="guess" maxlength="3">
+    <button onclick="guess()">입력</button>
+    <br><br>
+    <div id="result"></div>
+  </body>
+</html>

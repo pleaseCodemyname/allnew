@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>palindrome</title>
+    <script>
+        function checkPalindrome() {
+            let userInput = document.getElementById("userInput").value;
+            let a = document.getElementsByName("a"); // document.getElementsByName("a)는 a변수에 값이 배열임
+            alert(a[0].value) //a 의 첫번째 배열 값을 출력
+            // a.innerHTML = userInput +" is a palindrome!";
+            // let reversedInput = userInput.split("").reverse().join("");
+
+            // let result = document.getElementById("result");
+            // if (userInput === reversedInput) {
+            //     result.innerHTML = userInput + " is a palindrome!";
+            // } else {
+            //     result.innerHTML = userInput + " is not a palindrome.";
+            // }
+        }
+    </script>
+  </head>
+  <body>
+    <h3>Palindrome? Or Not?</h3>
+    <form>
+      <input type="text" id="userInput">
+      <input type="radio" name="a" value="1">a      
+      <button type="button" onclick="checkPalindrome()">Check</button>
+    </form>
+    <div id="result"></div>
+  </body>
+</html>
