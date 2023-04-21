@@ -5,6 +5,8 @@
     <title>Main Page</title>
     <link type="text/css" rel="stylesheet" href="mystyle.css"> 
     <script>
+      let id = "";
+      let now = ""
        function getParameter(name) {
       name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
       var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -14,22 +16,34 @@
         : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
     function sessionStore() {
-      let id = getParameter("id");
-      let now = new Date();
+      id = getParameter("id");
+      now = new Date();
       if (!window.sessionStorage) {   //id랑 passwor에 비정상적인 값을 입력했을떄 저장을 안함 , 쿠키 비활성화 + 브라우저 용량 한도 초과시
         alert("세션 스토리지를 지원하지 않습니다.");
         return;
       }
+      if (id == "") {
+        location.href = "index.html";
+        sessionStorage.removeItem("")
+        alert("잘못된 접근입니다.")
+      } else {
       sessionStorage.setItem(id, now); //id = key now(date) value 
       alert(`사용자 ${id} 세션 스토리지 생성`);
     }
+  }
+  // window.addEventListener("beforeunload", (event) => {
+  //   event.preventDefault();
+  //   event.returnValue = "";
+  // }); 로그인했을때 진짜 끄시겠습니까? 꺼짐을 막는 것임 (사용해야 할 상황에 쓰자)
+
     function sessionRemove() {
-      let id = getParameter("id");
+      id = getParameter("id");
 
       sessionStorage.removeItem(id);
       alert(`사용자 ${id} 세션 스토리지 삭제`);
       return
     } 
+    
   </script>
   </head>
   <body onload = "sessionStore()">

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>프라임#</title>
+</head>
+<body>
+<h3>프라임#</h3>
+<hr>
+<input id="from" type="text" size="10"> is Prime number?? 
+<button type="button" id="send" onclick="send()">send</button>
+<hr> <br>
+<div> <span id="sum"></span></div>
+<script>
+	// addWorker 워커 객체 생성 및 워커 태스크 시작
+	let checkPrime = new Worker("prime.js");
+
+    function send() {
+        let parameters = {
+            from: document.getElementById("from").value
+        };
+        checkPrime.postMessage(parameters);
+    }
+	// 워크 태스크로부터 message 이벤트 수신
+	checkPrime.onmessage = function (e) { // e는 MessageEvent 객체
+		// 이벤트 객체의 data(합) 출력		
+		document.getElementById("sum").value = e.data;  	
+	}
+    
+</script>
+</body>
+</html>

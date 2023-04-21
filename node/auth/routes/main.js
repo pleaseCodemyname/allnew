@@ -81,7 +81,7 @@ app.post('/login', (req, res) => {
     }
     if (id == 'admin' || id == 'root') {
         console.log(id + " => Administrator Logined")
-        res.redirect('member.html?id=' + id);
+        res.redirect('member.html?id=' + id); //주소뒤에 붙음
     } else {
         console.log(id + " => User Logined")
         res.redirect('user.html?id=' + id)
