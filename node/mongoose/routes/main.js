@@ -104,8 +104,8 @@ app.get('/get', function (req, res, next) {
 
 module.exports = app;
 
-async.series([query1, query2, query3, query4, query5, query6], function (err, result) {
-    if (err) {
+async.series([query1, query2, query3], function(err,result) {
+    if(err) {
         console.log('error' + err);
     } else {
         console.log('task finish');
