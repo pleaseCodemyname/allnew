@@ -1,16 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const mysql = require("sync-mysql")
-const env = require("dotenv").config({ path: "../../.env" });
-
-var connection = new mysql({
-    host: process.env.host,
-    user: process.env.user,
-    password: process.env.password,
-    database: process.env.database
-});
-
 const app = express()
+const pool = require("../../config/pool");
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -22,9 +13,9 @@ app.get("/Hello", (req, res) => {
 })
 
 // Select all rows from st_info table
-app.get("/select", (req, res) => {
-    const result = connection.query("SELECT * FROM st_info");
-    console.log(result);
+app.get("/select", async (req, res) => {
+    const [rows, fields] = await pool.query("SELECT * FROM st_info");
+    console.log(rows);
     res.writeHead(200);
     var template = `
   <!doctype html>
@@ -41,12 +32,12 @@ app.get("/select", (req, res) => {
        <th>DEPT</th>
      </tr>
    `;
-    for (var i = 0; i < result.length; i++) {
+    for (var i = 0; i < rows.length; i++) {
         template += `
      <tr>
-       <th>${result[i]['ST_ID']}</th>
-       <th>${result[i]['NAME']}</th>
-       <th>${result[i]['DEPT']}</th>
+       <th>${rows[i]['ST_ID']}</th>
+       <th>${rows[i]['NAME']}</th>
+       <th>${rows[i]['DEPT']}</th>
      </tr>
     `
     }
@@ -58,40 +49,40 @@ app.get("/select", (req, res) => {
     res.end(template);
 })
 
-
 // insert data into st_info table
-app.get("/insert", (req, res) => {
+app.get("/insert", async(req, res) => {
     const { ST_ID, NAME, DEPT } = req.query
-    const result = connection.query(
+    // console.log(req.query.ST_ID);
+    const [rows, fields] = await pool.query(
         "INSERT INTO st_info values (?, ?, ?)", [
         ST_ID,
         NAME,
         DEPT
     ]);
 
-    res.redirect('/select');
+        res.redirect('/select');
 })
 
 // update row from st_info table
-app.get("/update", (req, res) => {
+app.get("/update", async(req, res) => {
     const { ST_ID, NAME, DEPT } = req.query
-    const result = connection.query("UPDATE st_info SET NAME=?, DEPT=? WHERE ST_ID=?", [
+    const [rows, fields] = await pool.query("UPDATE st_info SET NAME=?, DEPT=? WHERE ST_ID=?", [
         NAME,
         DEPT,
         ST_ID
     ]);
 
-    res.redirect('/select');
+        res.redirect('/select');
 })
 
 // delete row from st_info table
-app.get("/delete", (req, res) => {
+app.get("/delete", async (req, res) => {
     const ST_ID = req.query.ST_ID
-    result = connection.query("DELETE FROM st_info WHERE ST_ID=?", [
+    const [results] = await pool.query("DELETE FROM st_info WHERE ST_ID=?", [
         ST_ID
     ]);
 
-    res.redirect('/select');
+       res.redirect('/select');
 })
 
 module.exports = app;
