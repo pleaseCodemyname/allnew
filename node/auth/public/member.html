@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title style>고객정보 테이블</title>
     <link type="text/css" rel="stylesheet" href="mystyle.css"> 
-    <script> //head안에 script 생성해서 function 집어넣기!! 성현이 FeedBack
+    <script> 
     let id ="";
     let now = "";
     function getParameter(name) {
@@ -18,7 +18,7 @@
     function sessionStore() {
       id = getParameter("id");
       now = new Date();
-      if (!window.sessionStorage) {   //id랑 passwor에 비정상적인 값을 입력했을떄 저장을 안함 , 쿠키 비활성화 + 브라우저 용량 한도 초과시
+      if (!window.sessionStorage) {   
         alert("세션 스토리지를 지원하지 않습니다.");
         return;
       } if (id == "") {

@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-d
+
 function template_nodata(res) {   
     var template = `    
     <!doctype html>
@@ -53,8 +53,8 @@ function template_result(result, res) {
     for (var i = 0; i < result.length; i++) {   
         template += `
     <tr>
-        <td>${result[i]['userid']}</td>  
-        <td>${result[i]['passwd']}</td>
+        <td>${result[i]['id']}</td>  
+        <td>${result[i]['pwd']}</td>
     </tr>
     `;
     }
@@ -73,8 +73,8 @@ app.get('/hello', (req, res) => {
 
 // login
 app.post('/login', (req, res) => {
-    const { id, pw } = req.body;
-    const result = connection.query("select * from user where userid=? and passwd=?", [id, pw]);
+    const { id, pwd } = req.body;
+    const result = connection.query("select * from user where id=? and pwd=?", [id, pwd]);
     // console.log(result);
     if (result.length == 0) {
         res.redirect('error.html')
@@ -91,11 +91,11 @@ app.post('/login', (req, res) => {
 
 // register
 app.post('/register', (req, res) => {
-    const { id, pw } = req.body;
+    const { id, pwd } = req.body;
     if (id == "") {
         res.redirect('register.html')
     } else {
-        let result = connection.query("select * from user where userid=?", [id]);
+        let result = connection.query("select * from user where id=?", [id]);
         if (result.length > 0) {
             res.writeHead(200);  
             var template = `
@@ -116,7 +116,7 @@ app.post('/register', (req, res) => {
         `; 
             res.end(template);
         } else {
-            result = connection.query("insert into user values (?, ?)", [id, pw]);
+            result = connection.query("insert into user values (?, ?)", [id, pwd]);
             console.log(result);
             res.redirect('/');
         }
@@ -156,7 +156,7 @@ app.get('/selectQuery', (req, res) => {
         // res.send('User-id를 입력하세요.')
         res.write("<script>alert('조회할 User-id를 입력하세요.')</script>");
     } else {
-        const result = connection.query("select * from user where userid=?", [id]);
+        const result = connection.query("select * from user where id=?", [id]);
         console.log(result);
         // res.send(result);
         res.writeHead(200);
@@ -174,7 +174,7 @@ app.post('/selectQuery', (req, res) => {
     if (id == "") {
         res.send('User-id를 입력하세요.')
     } else {
-        const result = connection.query("select * from user where userid=?", [id]);
+        const result = connection.query("select * from user where id=?", [id]);
         console.log(result);
         // res.send(result);
         res.writeHead(200);
@@ -188,16 +188,16 @@ app.post('/selectQuery', (req, res) => {
 
 // request O, query O
 app.post('/insert', (req, res) => {
-    const { id, pw } = req.body;
-    if (id == "" || pw == "") {   
+    const { id, pwd } = req.body;
+    if (id == "" || pwd == "") {   
         res.write("<script>alert('가입할 User-id를 입력하세요.')</script>")
     } else {
-        let result = connection.query("select * from user where userid=?", [id]);
+        let result = connection.query("select * from user where id=?", [id]);
         if (result.length > 0) {  
             res.write("<script>alert('중복된 id 입니다.'</script>")
             res.end(template);
         } else {
-            result = connection.query("insert into user values (?, ?)", [id, pw]);
+            result = connection.query("insert into user values (?, ?)", [id, pwd]);
             console.log(result);
             res.write("<script>alert('가입되었습니다')</script>")
         }
@@ -206,18 +206,18 @@ app.post('/insert', (req, res) => {
 
 // request O, query O
 app.post('/update', (req, res) => {
-    const { id, pw } = req.body;
-    if (id == "" || pw == "") {
+    const { id, pwd } = req.body;
+    if (id == "" || pwd == "") {
         res.write("<script>alert('User-id를 입력하세요')</script>")
     } else {
-        const result = connection.query("select * from user where userid=?", [id]);
+        const result = connection.query("select * from user where d=?", [id]);
         console.log(result);
         // res.send(result);
         if (result.length == 0) {
             // template_nodata(res)
             res.write("<script>alert('해당되는 id가 없습니다.')</script>")
         } else {
-            const result = connection.query("update user set passwd=? where userid=?", [pw, id]);
+            const result = connection.query("update user set pwd=? where id=?", [pwd, id]);
             console.log(result);
             // res.redirect('/selectQuery?id=' + id);
             res.write("<script>alert('업데이트 되었습니다')</script>")
@@ -233,7 +233,7 @@ app.post('/delete', (req, res) => {
         // res.send('User-id를 입력하세요.')
         res.write("<script>alert('삭제할 User-id를 입력하세요')</script>")
     } else {
-        const result = connection.query("select * from user where userid=?", [id]);
+        const result = connection.query("select * from user where id=?", [id]);
         console.log(result);
         // res.send(result);
         res.writeHead(200);
@@ -241,7 +241,7 @@ app.post('/delete', (req, res) => {
             // template_nodata(res)
             res.write("<script>alert('삭제할 User-id 정보가 일치하지 않습니다')</script>")
         } else {
-            const result = connection.query("delete from user where userid=?", [id]);
+            const result = connection.query("delete from user where d=?", [id]);
             console.log(result);
             // res.redirect('/select');
             res.write("<script>alert('삭제되었습니다')</script>")
