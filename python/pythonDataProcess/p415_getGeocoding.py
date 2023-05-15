@@ -5,7 +5,7 @@ import pandas as pd
 
 url_header = 'https://dapi.kakao.com/v2/local/search/address.json?query='
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.relpath("./"))) #절대경로를 통해서
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.relpath("../"))) #절대경로를 통해서
 secret_file = os.path.join(BASE_DIR, 'secret.json') #secret.json 파일 읽어옴
 
 with open(secret_file) as f:

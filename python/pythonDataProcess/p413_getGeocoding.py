@@ -5,7 +5,7 @@ import folium, requests
 address = '서울 마포구 신수동 451번지 세양청마루아파트 상가 101호'
 url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + address
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.relpath("./"))) #절대경로를 통해서
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.relpath("../"))) #절대경로를 통해서
 secret_file = os.path.join(BASE_DIR, 'secret.json') #secret.json 파일 읽어옴
 
 with open(secret_file) as f:
