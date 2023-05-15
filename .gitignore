@@ -10,11 +10,7 @@ c/**/hello
 c/**/*.o
 c/**/test*
 
-## carwash
-##carwash/*.csv
-
 ## java
-
 java/*.class
 
 ## scala
@@ -32,6 +28,7 @@ node/config/pool.js
 ## python
 python/**/.venv
 python/**/__pycache__/
+python/secret.json
 
 ## mongodb
 mongodb/*.json
