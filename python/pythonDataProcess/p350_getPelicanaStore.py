@@ -17,19 +17,19 @@ def getData():
         mytbody = mytable.find('tbody')
         # print(mytbody)
 
-        shopExists = False
+        shopExists =False
         for mytr in mytbody.findAll('tr'):
             shopExists = True
-            mylist = list(mytr.stripped_strings)
+            mylist = list(mytr.strings)
             print(mylist)
 
-            imsiphone = mytr.select_one('td:nth-of-tye(3)').string
-            if imsiphone != None:
+            imsiphone = mytr.select_one('td:nth-of-type(3)').string
+            if imsiphone !=None:
                 phone = imsiphone.strip()
             else:
-                phone=""
+                phone = " "
 
-            store =mylist[1]
+            store = mylist[1]
             address = mylist[3]
 
             if len(address) >= 2:

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_97787c563bb42b2445ffcae92b50744a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_97787c563bb42b2445ffcae92b50744a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_97787c563bb42b2445ffcae92b50744a = L.map(
+                "map_97787c563bb42b2445ffcae92b50744a",
+                {
+                    center: [37.5477899311394, 126.936715861657],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 17,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_30d11ae9defc5eb734ffb3aef3f66232 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_97787c563bb42b2445ffcae92b50744a);
+        
+    
+            var marker_64723f9af2404e0f526b69d2e61f118e = L.marker(
+                [37.5477899311394, 126.936715861657],
+                {}
+            ).addTo(map_97787c563bb42b2445ffcae92b50744a);
+        
+    
+            var icon_5d45853b7bccd3a2720729df7c8401f9 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "info-sign", "iconColor": "white", "markerColor": "red", "prefix": "glyphicon"}
+            );
+            marker_64723f9af2404e0f526b69d2e61f118e.setIcon(icon_5d45853b7bccd3a2720729df7c8401f9);
+        
+    
+        var popup_1635fefef48b1eebef59e3485332e6c4 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_104fc1740b4b4e123d7e1fa0f31fcd82 = $(`<div id="html_104fc1740b4b4e123d7e1fa0f31fcd82" style="width: 100.0%; height: 100.0%;"> 교촌 신수점</div>`)[0];
+                popup_1635fefef48b1eebef59e3485332e6c4.setContent(html_104fc1740b4b4e123d7e1fa0f31fcd82);
+            
+        
+
+        marker_64723f9af2404e0f526b69d2e61f118e.bindPopup(popup_1635fefef48b1eebef59e3485332e6c4)
+        ;
+
+        
+    
+    
+            var circle_marker_3c5e419c4f4ff607f043e1dd41215c7e = L.circleMarker(
+                [37.5477899311394, 126.936715861657],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 300, "stroke": true, "weight": 3}
+            ).addTo(map_97787c563bb42b2445ffcae92b50744a);
+        
+    
+        var popup_2397b0a7b21e26afba27d918d6e5e556 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c53c739040d23d53550ab9a3eaf0ff88 = $(`<div id="html_c53c739040d23d53550ab9a3eaf0ff88" style="width: 100.0%; height: 100.0%;"> 교촌 신수점</div>`)[0];
+                popup_2397b0a7b21e26afba27d918d6e5e556.setContent(html_c53c739040d23d53550ab9a3eaf0ff88);
+            
+        
+
+        circle_marker_3c5e419c4f4ff607f043e1dd41215c7e.bindPopup(popup_2397b0a7b21e26afba27d918d6e5e556)
+        ;
+
+        
+    
+</script>
+</html>
