@@ -1,4 +1,3 @@
-
 import json, urllib.request, datetime, math
 import os.path
 
@@ -32,7 +31,7 @@ def getHospitalData(pageNo, numOfRows):
 
     parameters = ''
     parameters += "?resultType=json"
-    parameters += "&serviceKey=" + get_secret("busan_h_apiKey")
+    parameters += "&serviceKey=" + get_secret("data_apiKey")
     parameters += "&pageNo=" + str(pageNo) 
     parameters += "&numOfRows=" + str(numOfRows)  
     url = end_point + parameters
