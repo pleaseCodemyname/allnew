@@ -50,7 +50,7 @@ print(myframe.index)
 print('-' * 50)
 
 print('\n이순신, 광주 실적 included row data read of DataFrame')
-result = myframe.loc[['이순신'], ['광주']]
+result = myframe.loc[['이순신'], ['광주']] #이순신 행 / 광주(열) 값을 가져오겠음
 print(type(result))
 print(result)
 
