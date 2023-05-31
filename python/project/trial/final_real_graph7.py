@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from pymongo import MongoClient
-from matplotlib import font_manager, rc
 
 # 폰트 설정
 plt.rcParams['font.family'] = 'AppleGothic'
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.relpath("./")))
 secret_file = os.path.join(BASE_DIR, "../secret.json")
 
@@ -43,7 +43,36 @@ for year, collection in zip(year_list, collections):
     df = df[["Year", "City"] + list(df.columns[1:-1])]
     df_list.append(df)
 
-df = pd.concat(df_list)
-df = df.reset_index(drop=True)
+df_combined = pd.concat(df_list)
+df_combined = df_combined.reset_index(drop=True)
 
-print(df)
+# 도시별 색상 매핑 딕셔너리
+city_colors = {"Tokyo": "red", "Osaka": "blue", "Fukuoka": "green"}
+
+# 그래프 그리기
+plt.figure(figsize=(10, 6))
+
+bar_width = 0.2
+opacity = 0.8
+
+for i, year in enumerate(year_list):
+    year_data = df_combined[df_combined["Year"] == year]
+    x = range(1, 13)  # 1부터 12까지의 월을 나타내는 range 생성
+
+    for j, city in enumerate(year_data["City"].unique()):
+        city_data = year_data[year_data["City"] == city]
+        y = city_data.values[0][2:14]  # 도시별 월별 데이터
+        plt.bar([p + (i + j * bar_width) * bar_width for p in x], y, bar_width,
+                alpha=opacity,
+                color=city_colors.get(city, "gray"),
+                label=f"{city} ({year})")
+
+plt.xlabel("Month")
+plt.ylabel("Value")
+plt.title("Combined Data by Year and City")
+
+plt.xticks(range(1, 13))  # x 축의 tick 위치를 1부터 12까지 설정
+plt.legend()
+
+plt.savefig('final_graph7')
+plt.show()

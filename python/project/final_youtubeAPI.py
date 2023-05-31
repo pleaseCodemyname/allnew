@@ -99,7 +99,6 @@ async def get_youtube_videos(keyword: str = "일본여행"): #유튜브에서 �
 
 #265개 중 205개가 들어간 이유는 API 제한 사항으로 인해 검색 결과에서 일부 비디오가 누락되었기 때문임.
 
-
 #FastAPI2
 @app.get("/youtube_list")
 async def get_youtube_videos():

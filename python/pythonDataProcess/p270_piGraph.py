@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-plt.rcParams['font.family'] = 'Malgun Gothic'
+plt.rcParams['font.family'] = 'AppleGothic'
 
 slices = [1, 2, 3, 4]
 hobbies = ['잠자기', '외식', '영화 감상', '운동']
