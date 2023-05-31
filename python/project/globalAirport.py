@@ -3,6 +3,13 @@ import json
 import pandas as pd
 from pymongo import MongoClient
 
+from matplotlib import font_manager, rc
+
+font_location = 'c:/windows/fonts/malgun.ttf'
+font_name = font_manager.FontProperties(fname=font_location).get_name()
+matplotlib.rc('font', family=font_name)
+plt.rcParams['font.family'] = 'malgun Gothic'
+
 with open("2018.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 df1 = pd.DataFrame(data)
