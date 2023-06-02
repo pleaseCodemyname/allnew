@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('sync-mysql');
 const env = require('dotenv').config({ path: "../../.env" });
+const axios = require('axios')
 
 var connection = new mysql({
     host: process.env.host,
@@ -21,59 +22,50 @@ app.get('/hello', (req, res) => {
     res.send('Hello World~!!')
 })
 
-// request O, query X
 app.get('/select', (req, res) => {
     const result = connection.query('select * from user');
     console.log(result);
     res.send(result);
 })
 
-// request O, query X
-app.post('/select', (req, res) => {
-    const result = connection.query('select * from user');
-    console.log(result);
-    res.send(result);
+app.get('/find/{year}', (req, res) => {
+    axios
+        .get('http://192.168.1.79:3000/find/2023')
+        .then(response => {
+            console.log(`statusCode : ${response.status}`)
+            console.log(response.data)
+            res.send(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
 })
 
-// request O, query O
-app.get('/selectQuery', (req, res) => {
-    const id = req.query.id;
-    const result = connection.query("select * from user where userid=?", [id]);
-    console.log(result);
-    res.send(result);
-})
+// app.get('/randomNum', (req, res) => {
+//     param = req.query.max
+//     axios
+//         .get('http://192.168.1.79:3000/randomNum', { params: { max: param } })
+//         .then(response => {
+//             console.log(`statusCode : ${response.status}`)
+//             console.log(response.data)
+//             res.send({ random: response.data })
+//         })
+//         .catch(error => {
+//             console.log(error)
+//         })
+// })
 
-// request O, query O
-app.post('/selectQuery', (req, res) => {
-    const id = req.body.id;
-    // console.log(req.body);
-    const result = connection.query("select * from user where userid=?", [id]);
-    console.log(result);
-    res.send(result);
-})
-
-// request O, query O
-app.post('/insert', (req, res) => {
-    const { id, pw } = req.body;
-    const result = connection.query("insert into user values (?, ?)", [id, pw]);
-    console.log(result);
-    res.redirect('/selectQuery?id=' + req.body.id);
-})
-
-// request O, query O
-app.post('/update', (req, res) => {
-    const { id, pw } = req.body;
-    const result = connection.query("update user set passwd=? where userid=?", [pw, id]);
-    console.log(result);
-    res.redirect('/selectQuery?id=' + req.body.id);
-})
-
-// request O, query O
-app.post('/delete', (req, res) => {
-    const id = req.body.id;
-    const result = connection.query("delete from user where userid=?", [id]);
-    console.log(result);
-    res.redirect('/select');
-})
+// app.get('/users', (req, res) => {
+//     axios
+//         .get('http://192.168.1.79:3000/users')
+//         .then(response => {
+//             console.log(`statusCode : ${response.status}`)
+//             console.log(response.data)
+//             res.send(response.data)
+//         })
+//         .catch(error => {
+//             console.log(error)
+//         })
+// })
 
 module.exports = app;

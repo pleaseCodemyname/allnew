@@ -16,8 +16,8 @@ secret_file = os.path.join(BASE_DIR, "../secret.json")
 with open(secret_file) as f:
     secrets = json.load(f)
 
-api_key = secrets["jy_youtube_apiKey"]
-youtube = build("youtube", "v3", developerKey=api_key)
+#api_key = secrets["jy_youtube_apiKey"]
+#youtube = build("youtube", "v3", developerKey=api_key)
 
 @app.get("/youtube")
 async def count_video_info(keyword: str, year: int):

@@ -12,8 +12,8 @@ secret_file = os.path.join(BASE_DIR, "../secret.json") #secret.json 파일의 JS
 with open(secret_file) as f:
     secret_data = json.load(f)
 
-api_key = secret_data["youtube_apiKey"] 
-youtube = build("youtube", "v3", developerKey=api_key)
+#api_key = secret_data["youtube_apiKey"] 
+#youtube = build("youtube", "v3", developerKey=api_key)
 
 @app.get("/youtube") #@app.get 데코레이터 사용하여 /youtube 엔드포인트 생성
 async def get_youtube_videos(keywords: str, year: int, month: int):

@@ -27,9 +27,9 @@ USERNAME = get_secret("ATLAS_Username")
 PASSWORD = get_secret("ATLAS_Password")
 
 # 몽고DB 연결
-client = MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@{HOSTNAME}")
-db = client["project"]
-collections = [db["collection2018"], db["collection2020"], db["collection2022"], db["collection2023"]]
+#client = MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@{HOSTNAME}")
+#db = client["project"]
+#collections = [db["collection2018"], db["collection2020"], db["collection2022"], db["collection2023"]]
 
 # 데이터프레임 생성
 df_list = []

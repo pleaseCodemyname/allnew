@@ -16,9 +16,9 @@ def get_secret(setting, secrets=secrets):
         errorMsg = "Set the {} environment variable.".format(setting)
         return errorMsg
 
-HOSTNAME = get_secret("ATLAS_Hostname")
-USERNAME = get_secret("ATLAS_Username")
-PASSWORD = get_secret("ATLAS_Password")
+# HOSTNAME = get_secret("ATLAS_Hostname")
+# USERNAME = get_secret("ATLAS_Username")
+# PASSWORD = get_secret("ATLAS_Password")
 
 client = MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@{HOSTNAME}")
 print("Connected to Mongodb....")

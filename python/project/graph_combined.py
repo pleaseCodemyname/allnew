@@ -3,7 +3,6 @@ import json
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-
 from pymongo import MongoClient
 
 # 폰트 설정
@@ -26,7 +25,6 @@ USERNAME = get_secret("ATLAS_Username")
 PASSWORD = get_secret("ATLAS_Password")
 
 # MongoDB 연결
-def combined_graph():
 client = MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@{HOSTNAME}")
 db = client["project"]
 collections = [db["collection2018"], db["collection2020"], db["collection2022"], db["collection2023"]]
@@ -53,7 +51,7 @@ plt.figure(figsize=(12, 4))
 year_colors = {2018: "black", 2020: "orange", 2022: "blue", 2023: "pink"}
 
 # 도시별 그래프 그리기
-for i, city in enumerate(["Tokyo", "Osaka", "Fukuoka"]): #인덱스와 값을 순서대로 반환함
+for i, city in enumerate(["Tokyo", "Osaka", "Fukuoka"]):
     plt.subplot(1, 3, i + 1)
     handles = []
     labels = []
@@ -63,7 +61,7 @@ for i, city in enumerate(["Tokyo", "Osaka", "Fukuoka"]): #인덱스와 값을 �
         city_data = df[(df["Year"] == year) & (df["City"] == city)]
         if not city_data.empty:
             x = range(1, 13)  # 월
-            y = city_data.iloc[:, 2:].values[0]  # city_data에서 2열 이상의 값들을 배열로 가져옴
+            y = city_data.iloc[:, 2:].values[0]  # 도시별 월별 데이터
 
             # Skip plotting bars with a value of 0.0
             if np.count_nonzero(y) > 0:
@@ -71,8 +69,8 @@ for i, city in enumerate(["Tokyo", "Osaka", "Fukuoka"]): #인덱스와 값을 �
                 opacity = 0.8  # 막대 그래프의 투명도
 
                 bars = plt.bar(x, y, bar_width,
-                alpha=opacity,
-                color=year_colors.get(year, "gray"))
+                               alpha=opacity,
+                               color=year_colors.get(year, "gray"))
                 handles.append(bars[0])
                 labels.append(str(year))
 
@@ -94,8 +92,15 @@ for i, city in enumerate(["Tokyo", "Osaka", "Fukuoka"]): #인덱스와 값을 �
 
 plt.tight_layout()  # 그래프 간격 조정
 
-# 그래프 파일 저장
-graph_filename = "combined_graph.png"
-plt.savefig(graph_filename)
+combined_graph_filename = 'final_combined_graph.png'
+plt.savefig(combined_graph_filename)
+plt.show()
 
-return graph_filename
+# 그래프 파일명과 데이터프레임 반환
+combined_graph_data = {
+    "graph_filename": combined_graph_filename,
+    "data": df.to_dict(orient="records")
+}
+
+# 결과 출력
+print(combined_graph_data)

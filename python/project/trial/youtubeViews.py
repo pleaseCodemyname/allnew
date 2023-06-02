@@ -7,12 +7,12 @@ app = FastAPI()
 
 class JourneyKeywordAPI:
     def __init__(self):
-        self.DEVELOPER_KEY = "AIzaSyB0vDBPwjFp2u2uSoQFGVhtu_CXTFuoLiM"
-        self.YOUTUBE_API_SERVICE_NAME = "youtube"
-        self.YOUTUBE_API_VERSION = 'v3'
+        #self.DEVELOPER_KEY = "AIzaSyB0vDBPwjFp2u2uSoQFGVhtu_CXTFuoLiM"
+        #self.YOUTUBE_API_SERVICE_NAME = "youtube"
+        #self.YOUTUBE_API_VERSION = 'v3'
 
     def videoId_likes(self):
-        youtube = build(self.YOUTUBE_API_SERVICE_NAME, self.YOUTUBE_API_VERSION, developerKey=self.DEVELOPER_KEY)
+        #youtube = build(self.YOUTUBE_API_SERVICE_NAME, self.YOUTUBE_API_VERSION, developerKey=self.DEVELOPER_KEY)
 
         search_response = youtube.search().list(
             q='#나고다 여행',

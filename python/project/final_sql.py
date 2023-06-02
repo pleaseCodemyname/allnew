@@ -1,3 +1,4 @@
+#python에 있는 파일 SQL로 보내는 방법
 from sqlalchemy import create_engine, Column, Integer, String, LargeBinary
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
@@ -9,7 +10,6 @@ secret_file = os.path.join(BASE_DIR, "../secret.json")
 
 with open(secret_file) as f:
     secrets = json.loads(f.read())
-
 
 def get_secret(setting, secrets=secrets):
     try:
@@ -29,13 +29,11 @@ DB_URL = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOSTNAME}:{PORT}/{DBNAME}"
 
 Base = declarative_base()
 
-
 class Image(Base):
     __tablename__ = "images"
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
     data = Column(LargeBinary)
-
 
 def db_conn():
     engine = create_engine(DB_URL)
@@ -44,18 +42,14 @@ def db_conn():
     Session = sessionmaker(bind=engine)
     return Session()
 
-
 session = db_conn()
 
 image_names = [
-    "combined_figure",
-    "combined_pie_chart",
     "final_2018graph",
     "final_2020graph",
     "final_2022graph",
     "final_2023graph",
-    "pie_chart_2020",
-    "pie_chart_2022",
+    "final_combined_graph"
 ]
 
 for image_name in image_names:
@@ -65,7 +59,4 @@ for image_name in image_names:
     session.add(image)
 
 session.commit()
-
-
-
 session.close()

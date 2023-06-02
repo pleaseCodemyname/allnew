@@ -2,7 +2,18 @@ import os
 import json
 import calendar
 import re
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import sqlite3
+import base64
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
 
+
+from fastapi.responses import FileResponse
 from bson import json_util
 from urllib.parse import quote
 from googleapiclient.discovery import build
@@ -11,6 +22,8 @@ from fastapi import FastAPI
 from pymongo import MongoClient
 from bson import ObjectId
 from collections import defaultdict
+from typing import List
+from df_graph import create_dataframe_and_graph
 
 app = FastAPI()
 
@@ -127,8 +140,15 @@ async def get_youtube_videos():
     collection_list.insert_many(json.loads(json_util.dumps(year_data_list)))
 
     return year_data_list
+#FastAPI 3(아린이 한테 연도별 리스트로 된 json파일 보내는 API)
+@app.get("/send")
+async def get_json_data():
+    file_path = "/allnew/python/project/dataset.json"
 
-#FastAPI 3 (년도별 월별 도쿄, 오사카, 후쿠오카 (한글, 영문) 언급 횟수 Count)
+    return FileResponse(file_path)
+
+
+#FastAPI 4 (년도별 월별 도쿄, 오사카, 후쿠오카 (한글, 영문) 언급 횟수 Count)
 @app.get("/find/{year}")
 async def find_year_data(year: int):
     client = MongoClient(f"mongodb+srv://{USERNAME}:{PASSWORD}@{HOSTNAME}")
@@ -178,5 +198,46 @@ async def find_year_data(year: int):
         "counts": count_dict
     }
 
-# @app.get("/graph{year}")
-# async def graph(year: int):
+#FastAPI5
+@app.get("/graph/{year}")
+async def create_data(year: int):
+    if year not in [2018, 2020, 2022, 2023]:
+        return "Invalid year"
+
+    graph_filename, df = create_dataframe_and_graph(year)
+
+    # 그래프 파일을 클라이언트에게 반환
+    return FileResponse(graph_filename, media_type="image/png")
+
+#FastApi 6
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+
+@app.get("/combined_graph")
+async def get_combined_graph():
+    def combined_graph():
+        fig = Figure(figsize=(12, 4))
+        canvas = FigureCanvas(fig)
+
+        # 그래프 그리기 코드 생략
+
+        graph_filename = "combined_graph.png"
+        canvas.print_png(graph_filename)
+        return graph_filename
+
+    graph_filename = combined_graph()
+    return FileResponse(graph_filename, media_type='image/png')
+
+# @app.get("/combined_graph")
+# def get_graph():
+#     global df
+#     if df is None:
+#         # 데이터프레임 생성 및 초기화하는 코드 추가
+#         # ...
+
+#     data = df.to_dict()  # 데이터프레임을 딕셔너리로 변환
+#     return {
+#         "data": data,
+#         "graph_filename": graph_filename
+#     }

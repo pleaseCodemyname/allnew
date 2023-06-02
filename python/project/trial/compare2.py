@@ -34,8 +34,8 @@ USERNAME = get_secret("ATLAS_Username")
 PASSWORD = get_secret("ATLAS_Password")
 
 # Secret.json의 API 키
-api_key = secrets["youtube_apiKey4"]
-youtube = build("youtube", "v3", developerKey=api_key)
+# api_key = secrets["youtube_apiKey4"]
+# youtube = build("youtube", "v3", developerKey=api_key)
 
 @app.get("/youtube")
 async def get_youtube_videos(keyword: str = "일본여행"):

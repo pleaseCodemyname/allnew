@@ -22,9 +22,9 @@ app = FastAPI()
 
 @app.get('/departureData')
 async def getData():
-    url = 'https://apis.data.go.kr/B551177/StatusOfSrvDestinations/getServiceDestinationInfo'
+    #url = 'https://apis.data.go.kr/B551177/StatusOfSrvDestinations/getServiceDestinationInfo'
     
-    params = '?serviceKey=' + get_secret("data_apiKey")
+    #params = '?serviceKey=' + get_secret("data_apiKey")
     params += '&airport_code='
     params += '&type=JSON'
     url += params

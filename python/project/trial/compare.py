@@ -27,13 +27,13 @@ def get_secret(setting, secrets=secrets):
     return errorMsg
 
 # Atlas API 정보
-HOSTNAME = get_secret("ATLAS_Hostname")
-USERNAME = get_secret("ATLAS_Username")
-PASSWORD = get_secret("ATLAS_Password")
+#HOSTNAME = get_secret("ATLAS_Hostname")
+#USERNAME = get_secret("ATLAS_Username")
+#PASSWORD = get_secret("ATLAS_Password")
 
 # Secret.json의 API 키
-api_key = secrets["jy_youtube_apiKey"]
-youtube = build("youtube", "v3", developerKey=api_key)
+#api_key = secrets["jy_youtube_apiKey"]
+#youtube = build("youtube", "v3", developerKey=api_key)
 
 @app.get("/alldata")
 async def get_all_data():

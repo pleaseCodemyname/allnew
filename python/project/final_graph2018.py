@@ -59,3 +59,5 @@ plt.legend()
 plt.savefig('final_2018graph.png')
 # 그래프 보여주기
 plt.show()
+
+return df, graph_filename
