@@ -19,7 +19,7 @@
       id = getParameter("id");
       now = new Date();
       if (!window.sessionStorage) {   //id랑 passwor에 비정상적인 값을 입력했을떄 저장을 안함 , 쿠키 비활성화 + 브라우저 용량 한도 초과시
-        alert("세션 스토리지를 지원하지 않습니다.");
+        alert("ID와 PASSWORD가 일치하지 않습니다.");
         return;
       }
       if (id == "") {
@@ -28,31 +28,53 @@
         alert("잘못된 접근입니다.")
       } else {
       sessionStorage.setItem(id, now); //id = key now(date) value 
-      alert(`사용자 ${id} 세션 스토리지 생성`);
+      alert(`${id}님 환영합니다.`);
     }
   }
   // window.addEventListener("beforeunload", (event) => {
   //   event.preventDefault();
   //   event.returnValue = "";
   // }); 로그인했을때 진짜 끄시겠습니까? 꺼짐을 막는 것임 (사용해야 할 상황에 쓰자)
-
     function sessionRemove() {
       id = getParameter("id");
-
       sessionStorage.removeItem(id);
-      alert(`사용자 ${id} 세션 스토리지 삭제`);
+      alert(`사용자 ${id}님 로그아웃 하셨습니다.`);
       return
     } 
-    
+    function getUserIDAndNavigate() {
+      const id = getParameter("id");
+      if (id === "") {
+        alert("조회할 세차장을 입력하세요.");
+        return;
+  }
+        // 서버에 사용자 ID를 보내어 해당 사용자의 세차장 추천 정보를 가져옴
+        fetch(`/carWash/nearby?id=${id}`)
+    .then(response => response.json())
+    .then(responseData => {
+        if (responseData.success) {
+            // Successful response, display the car wash results
+            displayCarWashes(responseData.data);
+        } else {
+            // Handle error cases
+            console.error('Error:', responseData.error);
+            alert('세차장 정보를 가져오는 데 문제가 발생했습니다.');
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching car wash results:', error);
+        alert('세차장 정보를 가져오는 데 문제가 발생했습니다.');
+    });
+    }
   </script>
   </head>
-  <body onload = "sessionStore()">
+  <body onload = "sessionStore">
     <style>
       #menubar {
-          background : olive;
+          background : #7575e4;
       }
       #menubar ul { /* 여백과 패딩 모두 0 */
           margin : 0;
+          height: 33px;
           padding : 0;
           width : 100%px; /* 모든 아이템(<li>)을 한 줄에 품을 수 있는 폭 */
       }
@@ -62,53 +84,76 @@
           padding : 0px 15px; /* top=bottom=0, left=right=15px */ 
       }
       #menubar ul li a {
-          color : white;
-            text-decoration : none; /* 링크 보이지 않게 */
+        color: black; /* Set the default color to black */
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 21px;
       }
       #menubar ul li a:hover {
-           color : violet;  /* 마우스 올라 갈 때 색 */
+        color: rgb(113,180,215);
       }
+       /* 버튼 스타일 추가 */
+      input[type="button"],
+      button {
+      button {
+        background-color: rgb(113, 180, 215); /* 원하는 배경 색상으로 조절 */
+        color: rgb(0, 0, 0); /* 버튼 텍스트 색상 */
+        font-weight: bold;
+        padding: 8px 12px; /* 버튼 내부 여백 */
+        border: none;
+        cursor: pointer;
+        font-size: 15px; /* 원하는 폰트 크기로 조절 */
+        margin-right: 10px; /* 각 버튼 간격 조절 */
+      }
+    }
+    form input[type="text"]{
+        height: 20px; /* Set the height for text inputs */
+        font-size: 15px;
+      }
+    /* 추가 스타일 */
+  .search {
+  background-color: rgb(113, 180, 215); /* 동일한 배경 색상으로 설정 */
+  color: rgb(0, 0, 0); /* 버튼 텍스트 색상 */
+        font-weight: bold;
+        padding: 5px 10px; /* 버튼 내부 여백 */
+        border: 1;
+        cursor: pointer;
+        font-size: 15px; /* 원하는 폰트 크기로 조절 */
+        margin-right: 10px; /* 각 버튼 간격 조절 */}
       </style>
     </body>
       <body>
         <nav id="menubar">
-        <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">AboutMe</a></li>
-        <li style="float: right;"><a href="index.html" onclick="sessionRemove()">logout</a></li>
-        
-        </ul>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">AboutMe</a></li>
+                <li style="float: right;"><a href="index.html" onclick="sessionRemove()">logout</a></li>
+            </ul>
         </nav>
         </body>
     <h3>해당 지역의 세차장을 찾아보세요</h3>
     <hr>
     <body>
-
-    <div>
-      <form action="/insert" target="targetURL" name="userForm" method="post">
-        <label for="carWashFind">세차장 조회 :</label>
-        <input id="carWashFind" type="text" size="15" name="gu" />
-        <button type="button" onclick='document.targetURL.location.href="/carWash/selectQuery?gu="+document.userForm.gu.value'/>검색</button>
-        <br><br>
-        <input type="button" value="세차장 전부 조회" onclick='document.targetURL.location.href="/carWash/select"'/>
-        &nbsp;
-        <input type="button" value="세차장 정보 추가" onclick='document.targetURL.location.href="/carWash/add"'/>
-        <input type="button" value="세차장 정보 추가" onclick='document.targetURL.location.href="/carWash/"'/>
-      </div>
+      <div>
+        <form action="/insert" target="targetURL" name="userForm" method="post">
+            <label for="carWashFind">세차장 조회 :</label>
+            <input id="carWashFind" type="text" size="15" name="gu" />
+            <br><br>
+            <input type="button" class="search" value="세차장 전부 조회" onclick='document.targetURL.location.href="/carWash/select"' />
+            <input type="button" class="search" value="지역 별 세차장 전부 조회" onclick='document.targetURL.location.href="/carWash/selectQuery?gu="+document.userForm.gu.value'></button>
+            <input type="button" class="search" value="세차장 인근 조회" onclick='getUserIDAndNavigate()' />
+        </form>
+    </div>
       <br>
     <body onload="sessionStore()">
     
       <hr />
       <iframe
         name="targetURL"
-        width="70%"
+        width="100%"
         height="500"
         style="border: none"
       ></iframe>
   </body>
 </html>
-      <!-- <input type="submit" value="사용자 추가"> 
-      &nbsp;&nbsp;
-      <button type="submit" formaction="/user/update">회원 정보 수정</button
-      >&nbsp;&nbsp;
-      <button type="submit" formaction="/user/delete">회원 삭제</button> -->
+
+

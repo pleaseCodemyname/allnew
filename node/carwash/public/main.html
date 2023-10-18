@@ -1,16 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Main Page</title>
-    <link type="text/css" rel="stylesheet" href="mystyle.css" />
-  </head>
-  <body>
-    <p style="font-size: 30px; color: red">Main Page</p>
-    <hr />
-    <p style="font-size: 70px">안녕하세요.</p>
-    <hr />
-    <a href="index.html">로그아웃</a>
-    <hr />
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <title>Main Page</title>
+  <link type="text/css" rel="stylesheet" href="mystyle.css" />
+  <script>
+        let id ="";
+    let now = "";
+    function getParameter(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+      return results === null
+        ? ""
+        : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    function sessionStore() {
+      id = getParameter("id");
+      now = new Date();
+      if (!window.sessionStorage) {   //id랑 passwor에 비정상적인 값을 입력했을떄 저장을 안함 , 쿠키 비활성화 + 브라우저 용량 한도 초과시
+        alert("ID와 PASSWORD가 일치하지 않습니다.");
+        return;
+      } if (id == "") {
+        location.href = "index.html";
+        sessionStorage.removeItem("")
+        alert("로그인 후 사용하시길 바랍니다.")
+      } else {
+      sessionStorage.setItem(id, now); //id = key now(date) value 
+      alert(`${id}님 환영합니다.`);
+    }
+  }  
+    function sessionRemove() {
+      id = getParameter("id");
+      sessionStorage.removeItem(id);
+      alert(`사용자 ${id} 로그아웃 하셨습니다.`);
+      return;
+  }
+  </script>
+</head>
+<body>
+  <p style="font-size: 30px; font-weight: 100%;color: rgb(121, 140, 203)">Main Page</p>
+  <hr />
+  <p id="welcomeText" style="font-size: 25px"></p>
+  <hr />
+  <a href="index.html">로그아웃</a>
+
+  <script>
+    // URL에서 ID 파라미터 가져오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+
+    // 환영 메시지 업데이트
+    const welcomeText = document.getElementById('welcomeText');
+    welcomeText.textContent = `안녕하세요. ${id}님 환영합니다.`;
+  </script>
+  <body onload="sessionStore()">
+
 </html>
+
+
+

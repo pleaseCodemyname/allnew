@@ -1,18 +1,18 @@
 /* 전체 페이지 스타일 */
 body {
 	font: bold 19px monospace, sans-serif;
-	background-color: rgb(28, 235, 250);
+	background-color: rgb(189, 197, 232);
   }
   
   /* 제목 스타일 */
   h3 {
-	color: #00020a;
-	margin-left: 30px;
+	color: rgb(0, 0, 0);
+  margin-left: 1%;
   }
   
   /* 수평선 스타일 */
   hr {
-	border: 15px solid #1f1625;
+	border: 15px solid #7575e4;
   }
   
   /* 입력 폼 스타일 */
@@ -31,32 +31,30 @@ body {
   
   /* 텍스트 입력 폼 스타일 */
   input[type="text"] {
-	background-color: rgb(53, 240, 193);
+	background-color: rgb(169, 175, 217);
   }
   
   /* 패스워드 입력 폼 스타일 */
   input[type="password"] {
-	background-color: rgb(226, 163, 202);
+	background-color: rgb(169, 175, 217);
   }
-  
   /* 박스 스타일 */
   div.box {
-	background: rgb(191, 170, 230);
+	background: rgb(214, 201, 237);
 	border-style: solid;
-	border-color: rgb(190, 155, 247);
+	border-color: rgb(3, 0, 7);
 	border-radius: 35px;
-	width: 350px;
+	width: 400px;
 	height: 200px;
-	margin: 100px auto;
-	border-width: 1px;
+	border-width: 3px;
 	padding: 50px;
+  font-size: 20px;
   }
   
   /* 박스 내부 스타일 */
   div.box-inner {
-	border-color: peru;
+	border-color: rgb(0, 0, 0);
 	border-style: none;
-	text-align: center;
 	margin: 10px;
 	padding: 10px;
   }
@@ -94,3 +92,5 @@ body {
   
   /* 이미지 배경 */
   
+
+

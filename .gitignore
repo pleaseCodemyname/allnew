@@ -1,6 +1,10 @@
 # .gitignore
 .ftpconfig
 
+#.json
+*.json
+node_modules
+
 # environment files
 .env
 
@@ -43,5 +47,3 @@ mongodb/backup
 oracle/node/dbConfig.js
 oracle/node/node_modules
 oracle/node/package-lock.json
-
-#html

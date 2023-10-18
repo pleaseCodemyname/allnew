@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title style>세차장 정보</title>
+    <link type="text/css" rel="stylesheet" href="mystyle.css"> 
+    <script> 
+    let id ="";
+    let now = "";
+    function getParameter(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+      return results === null
+        ? ""
+        : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    function sessionStore() {
+      id = getParameter("id");
+      now = new Date();
+      if (!window.sessionStorage) {   //id랑 passwor에 비정상적인 값을 입력했을떄 저장을 안함 , 쿠키 비활성화 + 브라우저 용량 한도 초과시
+        alert("ID와 PASSWORD가 일치하지 않습니다.");
+        return;
+      } if (id == "") {
+        location.href = "index.html";
+        sessionStorage.removeItem("")
+        alert("로그인 후 사용하시길 바랍니다.")
+      } else {
+      sessionStorage.setItem(id, now); //id = key now(date) value 
+      alert(`${id}님 환영합니다.`);
+    }
+  }  
+    function sessionRemove() {
+      id = getParameter("id");
+      sessionStorage.removeItem(id);
+      alert(`사용자 ${id}님 로그아웃 하셨습니다.`);
+      return;
+  }
+  </script>
+  </head>
+  <body onload="sessionStore">
+    <style>
+      #menubar {
+        background: #7575e4;
+      }
+    
+      #menubar ul {
+        margin: 0;
+        height: 33px;
+        padding: 0;
+        width: 100%;
+      }
+      #menubar ul li {
+        display: inline-block;
+        list-style-type: none;
+        padding: 0px 15px;
+      }
+    
+      #menubar ul li a {
+        color: black; /* Set the default color to black */
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 21px;
+      }
+    
+      #menubar ul li a:hover {
+        color: rgb(113,180,215);
+      }
+    
+      h3 {
+        color: black;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 25px;
+        font-weight: bold;
+      }
+      form input[type="text"]{
+        height: 20px; /* Set the height for text inputs */
+        font-size: 15px;
+      }
+      /* 버튼 스타일 추가 */
+      input[type="button"],
+      input[type="submit"],
+      button {
+        background-color: rgb(113, 180, 215); /* 원하는 배경 색상으로 조절 */
+        color: rgb(0, 0, 0); /* 버튼 텍스트 색상 */
+        font-weight: bold;
+        padding: 8px 12px; /* 버튼 내부 여백 */
+        border: 1;
+        cursor: pointer;
+        font-size: 15px; /* 원하는 폰트 크기로 조절 */
+        margin-right: 10px; /* 각 버튼 간격 조절 */
+      }
+      </style>
+      <nav id="menubar">
+          <ul>
+              <li><a href="index.html">Home</a></li>
+              <li style="float: right;"><a href="index.html" onclick="sessionRemove()">Logout</a></li><br><br>
+              <li><a href="member.html">고객정보</a></li>
+              <li><a href="carWash.html">세차장 정보</a></li>
+          </ul>
+      </nav><br><br> 
+  </body>
+  <body>
+    <form action="/carWash/add" target="targetURL" name="carWashForm" method="post">
+      <p>store_name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" name="store_name" /></p>
+      <p>gu : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="gu" /></p>
+      <p>type_of_business : <input type="text" name="type_of_business" /></p>
+      <p>carwash_type : &nbsp;&nbsp;&nbsp; <input type="text" name="carwash_type" /></p>
+      <p>address : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="address" /></p>
+      <p>start_work : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="start_work" /></p>
+      <p>end_work : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="end_work" /></p>
+      <p>tel_no : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="tel_no" /></p>
+      <p>latitude : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="latitude" /></p>
+      <p>longitude : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="longitude" /></p>
+      <input type="button" class="search" value="세차장 전부 조회" onclick='document.targetURL.location.href="/carWash/select"' />
+      <button type="submit" formaction="/carWash/add">세차장 추가</button>
+      <button type="submit" foraction="/carWash/update">세차장 정보 수정</button>
+      <button type="submit" formaction="/carWash/delete">세차장 정보 삭제</button>
+    </form>
+    <script>
+    </script>
+  <body onload="sessionStore()">
+    
+    <hr />
+    <iframe
+      name="targetURL"
+      width="100%"
+      height="500"
+      style="border: none"
+      src="/hello"
+    ></iframe>
+  </body>
+</html>
+
+
+

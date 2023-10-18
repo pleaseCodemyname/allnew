@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube API를 사용한 여행정보 추출, 분석 및 시각화</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title">일본 여행을 검색해보세요~!</h1>
+            <p class="subtitle">YouTube API를 사용한 여행정보 추출, 분석 및 시각화</p>
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Search YouTube Videos</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <p class="control is-expanded">
+                            <input id="keywordInput" class="input" type="text" placeholder="Enter keyword">
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <button id="searchButton" class="button is-primary" onclick="searchVideos()">Search</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="resultContainer"></div>
+
+            <div class="field is-grouped is-grouped-multiline">
+                <div class="control">
+                    <button class="button is-info" onclick="getYearlyData(2018)">2018년 데이터</button>
+                </div>
+                <div class="control">
+                    <button class="button is-info" onclick="getYearlyData(2020)">2020년 데이터</button>
+                </div>
+                <div class="control">
+                    <button class="button is-info" onclick="getYearlyData(2022)">2022년 데이터</button>
+                </div>
+                <div class="control">
+                    <button class="button is-info" onclick="getYearlyData(2023)">2023년 데이터</button>
+                </div>
+                <div class="control">
+                    <button class="button is-success" onclick="getCombinedGraph()">전체 비교</button>
+                </div>
+            </div>
+
+            <div id="keywordCountTable"></div>
+            <div id="keywordCountGraph"></div>
+        </div>
+    </section>
+
+    <script>
+        async function searchVideos() {
+            const keyword = document.getElementById('keywordInput').value;
+            const response = await fetch(`/youtube?keyword=${encodeURIComponent(keyword)}`);
+            const result = await response.json();
+
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            result.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'card';
+                videoCard.innerHTML = `
+                <div class="card-content">
+                    <p class="title">${video.Title}</p>
+                    <p>ID: ${video['_id']}</p>
+                    <p>조회수: ${video['View Count']}</p>
+                    <p>게시날짜: ${video['Published At']}</p>
+                    <p>Tags: ${video.Tags.join(', ')}</p>
+                </div>
+            `;
+                resultContainer.appendChild(videoCard);
+            });
+        }
+
+        async function getYearlyData(year) {
+    // Clear the combined graph when moving to specific year data
+    const combinedGraphContainer = document.getElementById('keywordCountGraph');
+    combinedGraphContainer.innerHTML = '';
+
+    const response = await fetch(`/find/${year}`);
+    const result = await response.json();
+
+    showKeywordCount(result.counts, year);
+}
+
+        async function getCombinedGraph() {
+            // 각 데이터 요소를 찾아서 삭제
+            const resultContainer = document.getElementById('resultContainer');
+            const keywordCountTable = document.getElementById('keywordCountTable');
+            const keywordCountGraph = document.getElementById('keywordCountGraph');
+            resultContainer.innerHTML = '';
+            keywordCountTable.innerHTML = '';
+            keywordCountGraph.innerHTML = '';
+
+            const response = await fetch('/combined_graph');
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+
+            const combinedGraphContainer = document.getElementById('keywordCountGraph');
+            combinedGraphContainer.innerHTML = `<img src="${imageUrl}" alt="전체 비교 그래프">`;
+        }
+
+        function showKeywordCount(counts, year) {
+            const tableContainer = document.getElementById('keywordCountTable');
+            const graphContainer = document.getElementById('keywordCountGraph');
+
+            const table = document.createElement('table');
+            table.className = 'table';
+            table.innerHTML = `
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    ${year === 2023 ? '' : '<th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>'}
+                </tr>
+            </thead>
+            <tbody>
+                ${Object.entries(counts).map(([city, months]) => `
+                    <tr>
+                        <td>${city}</td>
+                        <td>${months['1']}</td>
+                        <td>${months['2']}</td>
+                        <td>${months['3']}</td>
+                        <td>${months['4']}</td>
+                        <td>${months['5']}</td>
+                        ${year === 2023 ? '' : `
+                        <td>${months['6']}</td>
+                        <td>${months['7']}</td>
+                        <td>${months['8']}</td>
+                        <td>${months['9']}</td>
+                        <td>${months['10']}</td>
+                        <td>${months['11']}</td>
+                        <td>${months['12']}</td>
+                        `}
+                    </tr>
+                `).join('')}
+            </tbody>
+        `;
+            tableContainer.innerHTML = '';
+            tableContainer.appendChild(table);
+
+            const graphData = Object.entries(counts).map(([city, months]) => {
+                return {
+                    x: Array.from({ length: 13 }, (_, i) => i + 1),
+                    y: Object.values(months),
+                    type: 'bar',
+                    name: city,
+                };
+            });
+            const layout = { title: '월별 도시 언급 횟수', xaxis: { title: 'Month', tickvals: Array.from({ length: 12 }, (_, i) => i + 1), ticktext: Array.from({ length: 12 }, (_, i) => i + 1) }, yaxis: { title: 'Count' } };
+            Plotly.newPlot(graphContainer, graphData, layout);
+        }
+    </script>
+
+</body>
+</html>

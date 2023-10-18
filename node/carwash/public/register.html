@@ -5,17 +5,41 @@
     <title>Register</title>
     <link type="text/css" rel="stylesheet" href="mystyle.css"> 
   </head>
+  <style>      
+    form input[type="text"],
+    form input[type="password"]{
+    height: 20px; /* Set the height for text inputs */
+    font-size: 15px;
+  }
+    input[type="submit"],
+    input[type="reset"],
+    input[type="button"]   {
+        background-color: rgb(113, 180, 215);
+        color: #000;
+        font-weight: bold;
+        padding: 8px 12px;
+        border: 1;
+        cursor: pointer;
+        font-size: 15px;
+        margin-right: 10px;
+      }
+  </style>
   <body>
-    <h3>Register</h3>
+    <h3 style="color: black; font-size: 20pt; font-weight: 100%;">Register</h3>
     <hr />
     <form action="/register" name="userForm" method="post">
-      <p>Userid : <input type="text" size="15" name="id" /></p>
-      <p>Password : <input type="password" size="15" name="pwd" /></p>
-      <p>Address : <input type="text" size="30" name="address" /></p>
-      <p>Latitude : <input type="number" size="15" name="latitude" /></p>
-      <p>Longitude : <input type="number" size="15" name="longitude" /></p>
-      <input type="submit" value="회원가입" />&nbsp;&nbsp;
+      <p>id : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" size="15" name="id" /></p>
+      <p>pwd : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" size="15" name="pwd" /></p>
+      <p>address : &nbsp;&nbsp;<input type="text" size="15" name="address" /></p>
+      <p>latitude : &nbsp;<input type="text" size="15" name="latitude" /></p>
+      <p>longitude : <input type="text" size="15" name="longitude" /></p>
+      <input type="submit" value="회원가입" />
       <input type="reset" value="취소" />
+      <input type="button" value="메인페이지" onclick="window.location.href='index.html'" />
+      <a href="index.html"></a>
     </form>
   </body>
 </html>
+
+
+

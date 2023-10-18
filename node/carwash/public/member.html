@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title style>고객정보 테이블</title>
     <link type="text/css" rel="stylesheet" href="mystyle.css"> 
-    <script> //head안에 script 생성해서 function 집어넣기!! 성현이 FeedBack
+    <script> 
     let id ="";
     let now = "";
     function getParameter(name) {
@@ -19,94 +19,110 @@
       id = getParameter("id");
       now = new Date();
       if (!window.sessionStorage) {   //id랑 passwor에 비정상적인 값을 입력했을떄 저장을 안함 , 쿠키 비활성화 + 브라우저 용량 한도 초과시
-        alert("세션 스토리지를 지원하지 않습니다.");
+        alert("ID와 PASSWORD가 일치하지 않습니다.");
         return;
       } if (id == "") {
         location.href = "index.html";
         sessionStorage.removeItem("")
-        alert("잘못된 접근입니다.")
+        alert("로그인 후 사용하시길 바랍니다.")
       } else {
       sessionStorage.setItem(id, now); //id = key now(date) value 
-      alert(`사용자 ${id} 세션 스토리지 생성`);
+      alert(`${id}님 환영합니다.`);
     }
-  }
-    // window.addEventListener("beforeunload", (event) => {
-  //   event.preventDefault();
-  //   event.returnValue = "";
-  // }); 로그인했을때 진짜 끄시겠습니까? 꺼짐을 막는 것임 (사용해야 할 상황에 쓰자)
-  
-    function sessionRemove() {
+  }  
+function sessionRemove() {
       id = getParameter("id");
       sessionStorage.removeItem(id);
-      alert(`사용자 ${id} 세션 스토리지 삭제`);
+      alert(`사용자 ${id}님 로그아웃 하셨습니다.`);
       return;
   }
   </script>
   </head>
-  <body>
+  <body onload = "sessionStore">
     <style>
       #menubar {
-          background : olive;
+        background: #7575e4;
       }
-      #menubar ul { /* 여백과 패딩 모두 0 */
-          margin : 0;
-          padding : 0;
-          width : 100%px; /* 모든 아이템(<li>)을 한 줄에 품을 수 있는 폭 */
+    
+      #menubar ul {
+        margin: 0;
+        height: 33px;
+        padding: 0;
+        width: 100%;
       }
+    
       #menubar ul li {
-          display : inline-block; /* 새 줄로 넘어가지 않게 */
-          list-style-type : none; /* 마커 삭제 */
-          padding : 0px 15px; /* top=bottom=0, left=right=15px */ 
+        display: inline-block;
+        list-style-type: none;
+        padding: 0px 15px;
       }
+    
       #menubar ul li a {
-          color : white;
-            text-decoration : none; /* 링크 보이지 않게 */
+        color: black; /* Set the default color to black */
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 21px;
       }
+    
       #menubar ul li a:hover {
-           color : violet;  /* 마우스 올라 갈 때 색 */
+        color: rgb(113,180,215);
+      }
+    
+      h3 {
+        color: rgb(7, 34, 67);
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-size: 25px;
+        font-weight: bold;
+      }
+      form {
+        font-size: 20px; /* Adjust the overall font size of the form */
+      }
+      form input[type="text"],
+      form input[type="password"] {
+        height: 25px; /* Set the height for text inputs */
+        font-size: 20px;
+      }
+      /* 버튼 스타일 추가 */
+      input[type="button"],
+      input[type="submit"],
+      button {
+        background-color: rgb(113, 180, 215); /* 원하는 배경 색상으로 조절 */
+        color: rgb(0, 0, 0); /* 버튼 텍스트 색상 */
+        font-weight: bold;
+        padding: 8px 12px; /* 버튼 내부 여백 */
+        border: 1;
+        cursor: pointer;
+        font-size: 15px; /* 원하는 폰트 크기로 조절 */
+        margin-right: 10px; /* 각 버튼 간격 조절 */
       }
       </style>
-    </body>
+      </body>
       <body>
-        <nav id="menubar">
-        <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">AboutMe</a></li>
-        <li style="float: right;"><a href="index.html" onclick="sessionRemove()">logout</a></li>
-        </ul>
-        </nav>
-        </body>
-  <body>
-    <h3 style="color: black; 
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-weight: bold;">고객정보 </h3>
-    <hr />
+  <nav id="menubar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li style="float: right;"><a href="index.html" onclick="sessionRemove()">Logout</a></li><br><br>
+      <li><a href="member.html">고객정보</a></li>
+      <li><a href="carWash.html">세차장 정보</a></li>
+    </ul>
+  </nav><br><br> 
+</body>
+<body>
     <form action="/user/add" target="targetURL" name="userForm" method="post">
-      <p>Userid : <input type="text" size="15" name="id" /></p>
-      <p>Password : <input type="password" size="15" name="password" /></p>
-      
-      <input type="button" value="회원 조회" onclick='document.targetURL.location.href="/user/select"'
-      />&nbsp;&nbsp;
-      <input type="button" value="특정 회원 조회" onclick='document.targetURL.location.href="/user/selectQuery?id="+document.userForm.id.value'
-      />&nbsp;&nbsp; 
-      <input type="submit" value="사용자 추가" /> 
-      &nbsp;&nbsp;
-      <button type="submit" formaction="/user/update">회원 정보 수정</button
-      >&nbsp;&nbsp;
+      <p>id : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text"  name="id" /></p>
+      <p>pwd : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password"  name="pwd" /></p>
+      <p>address : &nbsp;&nbsp;&nbsp;<input type="text"  name="address" /></p>
+      <p>latitude : &nbsp; <input type="text"  name="latitude" /></p>
+      <p>longitude : &nbsp;<input type="text"  name="longitude" /></p>
+      <input type="button" value="회원 조회" onclick='document.targetURL.location.href="/user/select"'/>
+      <input type="button" value="특정 회원 조회" onclick='document.targetURL.location.href="/user/selectQuery?id="+document.userForm.id.value'/>
+      <button type="submit" formaction="/user/add" onclick='document.targetURL.location.href="/user/add"'/>사용자 추가</button>
+      <button type="submit" formaction="/user/update">회원 정보 수정</button>
       <button type="submit" formaction="/user/delete">회원 삭제</button>
     </form>
-    <script>
-    </script>
-
-  <body onload="sessionStore()">
-    
-    <hr />
-    <iframe
-      name="targetURL"
-      width="70%"
-      height="500"
-      style="border: none"
-      src="/hello"
-    ></iframe>
+    <hr/>
+    <body onload="sessionStore()">
+    <iframe name="targetURL" width="100%" height="500" style="border: none" src="/hello"></iframe>
   </body>
 </html>
+
+
